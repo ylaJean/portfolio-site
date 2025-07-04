@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="logo.png" type="image/png">
+  <title>Ayla Jean Abrea | Front-End Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 28px;
+      color: #ec4899;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #ec4899;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #be185d;
+      transform: scale(1.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #ec4899;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: white;
+        width: 200px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row-reverse;
+      padding: 80px 10%;
+      background: url('bg.gif') no-repeat center center/cover;
+      position: relative;
+      flex-wrap: wrap;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .hero .image-container,
+    .hero .text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .image-container {
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero .text {
+      max-width: 500px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .hero button {
+      padding: 14px 30px;
+      background: #ec4899;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #be185d;
+      transform: scale(1.05);
+    }
+
+    .section {
+      padding: 80px 10%;
+      background: #ffffff;
+      border-radius: 24px;
+      margin: 60px 5%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .section h2 {
+      font-size: 32px;
+      color: #ec4899;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #fdfdfe;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+      color: #ec4899;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #4b5563;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      color: #374151;
+      font-size: 14px;
+      display: none;
+    }
+
+    .card.expanded ul {
+      display: block;
+    }
+
+    .view-more-btn {
+      margin-top: 15px;
+      background: #ec4899;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .view-more-btn:hover {
+      background: #be185d;
+    }
+
+    .contact {
+      background: #fce7f3;
+      text-align: center;
+      padding: 60px 10%;
+    }
+
+    .contact h2 {
+      font-size: 28px;
+      color: #ec4899;
+      margin-bottom: 20px;
+    }
+
+    .icon-circle-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .icon-circle-links a {
+      width: 50px;
+      height: 50px;
+      background: #ec4899;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .icon-circle-links a:hover {
+      background: #be185d;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero .image-container {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+
+      .section { padding: 50px 5%; margin: 30px 3%; }
+      .section h2 { font-size: 26px; }
+      .card h3 { font-size: 20px; }
+      .card p, .card ul { font-size: 14px; }
+    }
+     form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .status {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .section#about {
+  background: url('abtmebg.png') no-repeat center center/cover;
+  position: relative;
+  color: white;
+  padding: 80px 10%;
+  border-radius: 24px;
+  overflow: hidden;
+  margin: 60px 5%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.section#about h2 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section#about p {
+  font-size: 17px;
+  line-height: 1.6;
+  color:#374151;
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><i class="fas fa-code"></i> <strong>ZN.YLA</strong></div>
+  <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  <nav id="navMenu">
+    <a onclick="scrollToSection('home')">Home</a>
+    <a onclick="scrollToSection('skills')">Skills</a>
+    <a onclick="scrollToSection('about')">About</a>
+    <a onclick="scrollToSection('contact')">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="image-container">
+    <img src="YLAPIC.png" alt="Portrait" />
+  </div>
+  <div class="text">
+    <h1>AYLA JEAN Z. ABREA</h1>
+    <p>Front-End Developer | Data Entry Specialist  <br>
+    Email: aylajeanabrea@gmail.com <br>
+    Passionate about building digital solutions with creativity and precision.</p>
+
+    <button onclick="scrollToSection('skills')">Explore My Work</button>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="about-overlay">
+    <h2>About Me</h2>
+    <p style="max-width: 700px; margin: auto; text-align: center;">
+      I'm a motivated and detail-oriented professional with a strong passion for solving problems and constantly learning. I enjoy breaking down complex information, thinking critically, and turning challenges into practical solutions. I work well in collaborative, fast-paced environments and always bring a proactive and adaptable mindset to the table. I'm committed to growing both personally and professionally, and I look forward to contributing to meaningful work that drives results.
+    </p>
+  </div>
+</section>
+
+
+<section id="skills" class="section">
+  <h2>My Skillset</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Data Entry</h3>
+      <p>Experienced in efficient and accurate data mnagement using Excel (including advanced formulas, PivotTables, VLOOKUP, and data cleaning), Google Sheets, and SQL databases, with strong data entry skills and a typing speed of 55 WPM.</p>
+      <p><b>Experienced</b></p>
+      <ul>
+        <li>Handled data entry of client information from physical forms into a database for MTFRB Lucban.</li>
+     
+      </ul>
+      <button class="view-more-btn" onclick="toggleCard(this)">View More</button>
+    </div>
+    <div class="card">
+      <h3>Front-End Development</h3>
+      <p>A passionate and detail-oriented web developer with hands-on experience in HTML, CSS, JavaScript, React, and PHP. I enjoy building responsive, dynamic, and visually engaging user interfaces, and I love turning ideas into functional, user-friendly web applications</p>
+      <p><b>Projects</b></p>
+     <ul>
+  <li>
+    <strong>Internal Use Website – MTFRB Database System (Internship Project)</strong><br>
+    Built for LGU staff during your OJT at Lucban, Quezon<br>
+    <strong>Purpose:</strong> Register, edit, and delete client records in the MTFRB database<br>
+    <strong>Features:</strong> Admin dashboard, user role access, internal data management<br>
+    <strong>Note:</strong> Cannot be shown publicly due to privacy restrictions
+  </li>
+
+  <li>
+    <strong>Public Client Access Website – City Ordinance Request Form (Internship Project)</strong><br>
+    Built for public use during your internship<br>
+    <strong>Purpose:</strong> Allow citizens to request city ordinances via an online form<br>
+    <strong>Features:</strong> Responsive design, accessible web form, user-friendly interface<br>
+    <strong>Note:</strong> Cannot be shown publicly due to privacy restrictions
+  </li>
+
+  <li>
+    <strong>Adulting Budget Planner (Personal Project)</strong><br>
+    Mobile-friendly budgeting app<br>
+    <strong>Features:</strong> 50/30/20 calculator, daily budget, over-budget alerts, monthly charts (Chart.js), login/registration, localStorage for data<br>
+    <a href="https://ylajean.github.io/BudgetBuddy/" target="_blank" style="text-decoration:none;">
+      👁️ View Project
+    </a>
+  </li>
+  <li>
+    <strong>Personal Portfolio Website</strong><br>
+    Online portfolio showcasing projects, experienced, and contact info<br>
+    </a>
+  </li>
+
+  <li>
+    <strong>Restaurant Reservation Site</strong><br>
+    A website that allows users to reserve tables online<br>
+    <strong>Features:</strong> Reservation form, responsive design, clean user interface<br>
+    </a>
+  </li>
+</ul>
+
+      <button class="view-more-btn" onclick="toggleCard(this)">View More</button>
+    </div>
+ 
+  
+</section>
+
+
+
+<script>
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("navMenu").classList.remove("active");
+  }
+
+  function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+  }
+
+  function toggleCard(button) {
+    const card = button.closest('.card');
+    card.classList.toggle('expanded');
+    button.textContent = card.classList.contains('expanded') ? 'View Less' : 'View More';
+  }
+</script>
+
+</body>
+</html>
+
+<section id="contact" class="contact">
+  <h2>Let's Connect!</h2>
+  <div class="icon-circle-links">
+    <a href="mailto:aylajeanabrea@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/ayla-jean-abrea/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://github.com/ylaJean" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+  </div>
+   
+</section>
+
+<script>
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("navMenu").classList.remove("active"); // auto-close on mobile
+  }
+
+  function toggleCard(button) {
+    const card = button.closest('.card');
+    card.classList.toggle('expanded');
+    button.textContent = card.classList.contains('expanded') ? 'View Less' : 'View More';
+  }
+
+  function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+  }
+
+</script>
+
+
+</body>
+</html>
